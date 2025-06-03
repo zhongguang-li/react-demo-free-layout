@@ -1,6 +1,6 @@
 import {
   injectable,
-  inject,
+  inject, 
   WorkflowDocument,
   Playground,
   delay,
@@ -17,7 +17,7 @@ export class RunningService {
   @inject(WorkflowDocument) document: WorkflowDocument;
 
   private _runningNodes: WorkflowNodeEntity[] = [];
-
+ 
   async addRunningNode(node: WorkflowNodeEntity): Promise<void> {
     this._runningNodes.push(node);
     node.renderData.node.classList.add('node-running');

@@ -2,6 +2,9 @@ import { useState, useEffect, useCallback } from 'react';
 
 import { useClientContext, getNodeForm, FlowNodeEntity } from '@flowgram.ai/free-layout-editor';
 import { Button, Badge } from '@douyinfe/semi-ui';
+import { updateFlow } from '../../api/flow-api';
+
+import { flowId } from '../../initial-data';
 
 export function Save(props: { disabled: boolean }) {
   const [errorCount, setErrorCount] = useState(0);
@@ -19,7 +22,9 @@ export function Save(props: { disabled: boolean }) {
   const onSave = useCallback(async () => {
     const allForms = clientContext.document.getAllNodes().map((node) => getNodeForm(node));
     await Promise.all(allForms.map(async (form) => form?.validate()));
+    console.log('>>>>> flowId: ', flowId);
     console.log('>>>>> save data: ', clientContext.document.toJSON());
+    updateFlow(flowId,  clientContext.document.toJSON());
   }, [clientContext]);
 
   /**
